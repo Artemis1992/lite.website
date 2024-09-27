@@ -4,6 +4,10 @@ from .views import *
 
 urlpatterns = [
     path('', index),
-    path('cats/', categories),
+    path('cats/<int:catid>/', categories),
     # path('artist/', artist),
 ]
+
+
+
+
