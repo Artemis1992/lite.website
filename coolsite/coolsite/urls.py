@@ -15,11 +15,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+
+
+
+from django.conf.urls.static import static
+from coolsite import settings
 from django.contrib import admin
 from django.urls import path
+from people.views import pageNotFound
 
-from people.views import * # это все функции которые обрабатывают запросы.
+ # это все функции которые обрабатывают запросы.
 from django.urls import path, include
+
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,4 +43,11 @@ urlpatterns = [
     
 ]
 
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
 handler404 = pageNotFound
+
+
