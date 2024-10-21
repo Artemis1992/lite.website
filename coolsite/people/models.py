@@ -8,6 +8,7 @@ class People(models.Model):
     time_update = models.DateTimeField(auto_now=True) # Время обновления, при каждом изменении
     is_published = models.BooleanField(default=True)
 
-
+    def __str__(self):
+        return self.title
 
 
