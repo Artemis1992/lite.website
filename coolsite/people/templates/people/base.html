@@ -1,18 +1,89 @@
-<!DOCTYPE html> <!-- Объявление типа документа: указывает, что это HTML5-документ -->
-<html> <!-- Начало HTML-документа -->
-<head> <!-- Заголовочная часть документа, здесь находятся мета-информации, стили и заголовок -->
-    <title>{{title}}</title> <!-- Заголовок страницы. Используется Jinja2-шаблон, чтобы подставить значение переменной "title" -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Заголовок страницы, устанавливаем через переменную title -->
+    <title>{{title}}</title>
+    
+    <!-- Подключение CSS-файла -->
+    <link type="text/css" href="{% static 'people/css/styles.css' %}" rel="stylesheet" />
+    
+    <!-- Установка кодировки -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <!-- Иконка для страницы -->
+    <link rel="shortcut icon" href="{% static 'people/images/main.ico' %}" type="image/x-icon"/>
+    
+    <!-- Адаптация страницы для мобильных устройств -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body> <!-- Основная часть страницы (тело документа) -->
-    {% block mainmenu %} <!-- Блок для основного меню, который может быть переопределен в других шаблонах -->
-    <ul>
-        {% for m in menu %} <!-- Цикл, который проходит по элементам списка "menu" и отображает каждый из них -->
-    <li>{{m}}</li> <!-- Вывод каждого элемента меню в виде списка (li) -->
-        {% endfor %} <!-- Конец цикла -->
-    </ul>
-    {% endblock mainmenu %} <!-- Конец блока меню -->
+<body>
+<table class="table-page" border="0" cellpadding="0" cellspacing="0">
+<tr>
+    <td valign="top">
+    
+    <!-- Блок главного меню -->
+    {% block mainmenu %}
+        <div class="header">
+            <ul id="mainmenu" class="mainmenu">
+                <!-- Логотип -->
+                <li class="logo"><a href="#"><div class="logo"></div></a></li>
+                
+                <!-- Цикл по элементам меню -->
+                {% for m in menu %}
+                    {% if not forloop.last %}
+                        <li><a href="#">{{m.title}}</a></li>
+                    {% else %}
+                        <li class="last"><a href="#">{{m.title}}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <div class="clear"></div>
+        </div>
+    {% endblock mainmenu %}
+    
+    <table class="table-content" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    
+    <!-- Боковая панель (слева) с категориями -->
+    <td valign="top" class="left-chapters">
+        <ul id="leftchapters">
+            <li class="selected">Все категории</li>
+            <li><a href="#">Знаменитости мужчины</a></li>
+            <li><a href="#">Знаменитости женщины</a></li>
+            <li class="share">
+                <!-- Информация о канале YouTube -->
+                <p>Канал где проходили курсы.</p>
+                <a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists" target="_blank" rel="nofollow"></a>
+            </li>
+        </ul>
+    </td>
+    
+    <!-- Основной контент страницы -->
+    <td valign="top" class="content">
+        <!-- Хлебные крошки (навигация) -->
+        {% block breadcrumbs %}
+        {% endblock %}
+        
+        <!-- Блок основного текста -->
+        <div class="content-text">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </td>
+    
+    </tr></table>
+    </td>
+</tr>
 
-    {% block content %} <!-- Блок контента, который будет заполняться в других шаблонах -->
-    {% endblock %} <!-- Конец блока контента -->
+<!-- Нижний колонтитул (footer) -->
+<tr>
+    <td valign="top">
+        <div id="footer">
+            <p>&copy; 2021 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, строго запрещено.</p>
+        </div>
+    </td>
+</tr>
+</table>
 </body>
-</html> <!-- Завершение HTML-документа -->
+</html>

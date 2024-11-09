@@ -117,7 +117,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -125,6 +125,35 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Настройка пути к директории для загрузки медиа-файлов
-MEDIA_ROOT = os.path.join(BASE_DIR, "media") # Директория media будет создана в корне проекта
-# URL для доступа к медиа-файлам через веб
-MEDIA_URL = "/media/" 
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+MEDIA_URL = "/media/"
+
+DEBUG = True  # Если вы в режиме разработки
+
+ALLOWED_HOSTS = ['127.0.0.1']  # Добавьте хосты, если нужно
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
