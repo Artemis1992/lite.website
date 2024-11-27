@@ -27,14 +27,14 @@
         <div class="header">
             <ul id="mainmenu" class="mainmenu">
                 <!-- Логотип -->
-                <li class="logo"><a href="#"><div class="logo"></div></a></li>
+                <li class="logo"><a href="{% url "home" %}"><div class="logo"></div></a></li>
                 
                 <!-- Цикл по элементам меню -->
                 {% for m in menu %}
                     {% if not forloop.last %}
-                        <li><a href="#">{{m.title}}</a></li>
+                        <li><a href="{% url m.url_name %}">{{m.title}}</a></li>
                     {% else %}
-                        <li class="last"><a href="#">{{m.title}}</a></li>
+                        <li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
