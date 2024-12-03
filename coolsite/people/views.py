@@ -16,30 +16,39 @@ menu = [{"title": "О сайте", "url_name": "about"},
 
 def index(request):
     posts = People.objects.all()
+    cats = Category.objects.all()
+    
     context = {
-        'posts': posts,
-        'menu': menu,
-        'title': 'Главная страница',
+        'posts': posts,        # Список записей
+        'cats': cats,          # Коллекция категорий
+        'menu': menu,          # Меню
+        'title': 'Главная страница',  # Заголовок страницы
+        'cat_selected': 0,     # Выбранная категория (0 — все категории)
     }
+
     return render(request, 'people/index.html', context=context)
 
-# Узнать почему эта функция не получалась. сровнить ее с курсовой
-# def show_post(request, post_id):
-#     # Получаем объект People с указанным ID или возвращаем 404
-#     post = get_object_or_404(People, id=post_id)
-    
-#     # Формируем упрощенный контекст
-#     context = {
-#         'title': f"Статья {post_id}",
-#         'post': post,  # Передаем объект статьи
-#     }
-    
-#     # Отображаем шаблон base.html с упрощенным контекстом
-#     return render(request, 'base.html', context=context)
-    
+
 def show_post(request, post_id):
     return HttpResponse(f"Отображение статьи с id = {post_id}")
 
+
+def show_category(request, cat_id):
+    posts = People.objects.filter(cat_id=cat_id) 
+    cats = Category.objects.all()
+    
+    if len(posts) == 0:
+        raise Http404
+    
+    context = {
+        'posts': posts,
+        'cats': cats,
+        'menu': menu,
+        'title': 'Отображение по рубрикам',
+        'cat_selected': cat_id,
+    }
+    return render(request, 'people/index.html', context=context)
+     
 def about(request):
     return render(request, 'people/about.html', {"menu": menu, 'title': 'О сайте'})
 

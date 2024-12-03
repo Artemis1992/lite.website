@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+
 class People(models.Model):
     title = models.CharField(max_length=255)  # Заголовок или имя (макс. 255 символов)
     content = models.TextField(blank=True)  # Текстовое поле, может быть пустым
@@ -8,6 +9,7 @@ class People(models.Model):
     time_create = models.DateTimeField(auto_now_add=True)  # Время создания записи
     time_update = models.DateTimeField(auto_now=True)  # Время обновления записи
     is_published = models.BooleanField(default=True)  # Статус публикации (по умолчанию — опубликовано)
+    cat = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)  # Связь с таблицей категорий
 
     def __str__(self):
         return self.title  # Возвращает название записи
@@ -15,4 +17,21 @@ class People(models.Model):
 
     def get_absolute_url(self):
         return reverse("post", kwargs={"post_id": self.pk})
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, db_index=True)  # Название категории
+
+    def __str__(self):
+        return self.name  # Для отображения названия категории в админке
+    
+    def get_absolute_url(self):
+        return reverse("category", kwargs={"cat_id": self.pk})
+
+    
+    
+    
+    
+    
+    
     
