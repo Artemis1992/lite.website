@@ -1,0 +1,21 @@
+<!-- Верхнее меню -->
+<ul class="menu-list">
+    {% for item in menu %}
+    <li><a href="{% url item.url_name %}">{{ item.title }}</a></li> {# Добавили меню в пользовательские теги #}
+    {% endfor %}    
+</ul>
+
+<!-- Стили для меню (убираем маркеры) -->
+<style>
+    .menu-list {
+        list-style-type: none;  <!-- Убираем маркеры -->
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu-list li {
+        margin-bottom: 10px; <!-- Отступы между элементами меню -->
+    }
+</style>
+
+
