@@ -46,7 +46,7 @@
     <td valign="top" class="left-chapters">
 
         <!--  {% getcats as categories %} --> <!--Пользовательский тег "simple_tag"-->
-
+        
         <ul id="leftchapters">
             {% if cat_selected == 0 %}
             <li class="selected">Все категории</li>
@@ -54,8 +54,8 @@
             <li><a href="{% url 'home' %}">Все категории</a></li>
         {% endif %}
         
-        {% show_categories %} <!--Ссылка на пользовательский тег inclusion_tag, находится по адрессу people_tags.py-->
-        
+        {% show_categories cat_selected=cat_selected %}
+
             <li class="share">
                 <!-- Информация о канале YouTube -->
                 <p>Канал где проходили курсы.</p>
