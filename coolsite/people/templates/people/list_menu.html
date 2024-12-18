@@ -1,21 +1,12 @@
-<!-- Верхнее меню -->
-<ul class="menu-list">
-    {% for item in menu %}
-    <li><a href="{% url item.url_name %}">{{ item.title }}</a></li> {# Добавили меню в пользовательские теги #}
-    {% endfor %}    
-</ul>
-
-<!-- Стили для меню (убираем маркеры) -->
-<style>
-    .menu-list {
-        list-style-type: none;  <!-- Убираем маркеры -->
-        padding: 0;
-        margin: 0;
-    }
-
-    .menu-list li {
-        margin-bottom: 10px; <!-- Отступы между элементами меню -->
-    }
-</style>
+<!-- Это шаблон для отображения списка категорий пользовательского тега. 
+    Если текущая категория совпадает с выбранной, то она отображается с классом "selected". 
+    Все остальные категории отображаются как ссылки на страницы с использованием метода get_absolute_url для получения URL каждой категории. -->
 
 
+{% for m in menu %}
+    {% if not forloop.last %}
+        <li><a href="{% url m.url_name %}">{{m.title}}</a></li>
+    {% else %}
+        <li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
+    {% endif %}
+{% endfor %}

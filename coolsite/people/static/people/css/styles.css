@@ -1,301 +1,369 @@
-/* Общие стили для всего документа */
 html, body {
-    font-family: 'Arial', sans-serif; /* шрифт для всего текста */
-    margin: 0; /* удаление отступов */
-    padding: 0; /* удаление внутренних отступов */
-    height: 100%; /* высота страницы на всю высоту окна */
-    width: 100%; /* ширина страницы на всю ширину окна */
-    color: #4a5a6a; /* более мягкий цвет текста */
-    background: url('{% static "people/images/fon.jpg" %}') no-repeat center center fixed; /* фон с изображением */
-    background-size: cover; /* изображение будет покрывать весь экран */
-    transition: background-color 0.5s ease; /* плавный переход фона */
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	color: #4a5a6a; /* более мягкий цвет текста */
+	background: url('{% static "people/images/fon.jpg" %}') no-repeat center center fixed;
+
+	/*background: url('{% static "people/images/fon.jpg" %}') no-repeat center center fixed; /* заменяем фон на изображение */
+	background-size: cover; /* изображение будет покрывать весь экран */
+	transition: background-color 0.5s ease;
 }
 
-
-
-/* Стили для ссылок */
 a {
-    color: #6a8f97; /* холодный синий цвет для текста ссылок */
-    text-decoration: none; /* убирает подчеркивание у ссылок */
-    transition: color 0.3s ease; /* плавный переход цвета */
+	color: #6a8f97; /* холодный синий */
+	text-decoration: none;
+	transition: color 0.3s ease;
 }
-
-/* Стили для ссылок при наведении */
 a:hover {
-    color: #55788b; /* темный синий цвет при наведении */
-    text-decoration: underline; /* подчеркивание при наведении */
+	color: #55788b; /* темнее при наведении */
+	text-decoration: underline;
 }
 
-/* Стили для изображений */
 img {
-    max-width: 100%; /* максимальная ширина изображения 100% */
-    height: auto; /* автоматическая высота, пропорциональная ширине */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* плавный переход при изменении размера и прозрачности */
+	max-width: 100%;
+	height: auto;
+	transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
-/* Стили для изображений при наведении */
 img:hover {
-    transform: scale(1.05); /* увеличение изображения */
-    opacity: 0.85; /* уменьшение прозрачности */
+	transform: scale(1.05);
+	opacity: 0.85; /* менее прозрачное */
 }
 
-/* Стили для изображений, которые располагаются слева */
 img.img-article-left {
-    max-width: 300px; /* максимальная ширина 300px */
-    height: auto;
-    float: left; /* изображение будет слева */
-    padding: 0 10px 10px 0; /* отступы */
+	max-width: 300px;
+	height: auto;
+	float: left;
+	padding: 0 10px 10px 0;
 }
 
-/* Стили для уменьшенных изображений */
 img.img-article-left.thumb {
-    max-width: 150px; /* максимальная ширина 150px */
-    height: auto;
+	max-width: 150px;
+	height: auto;
 }
 
-/* Стили для текста с ссылкой на статью */
 p.link-read-post {
-    text-align: right; /* выравнивание текста по правому краю */
+	text-align: right;
 }
-
-/* Стили для ссылок на статьи */
 p.link-read-post a {
-    padding: 10px; /* внутренние отступы */
-    min-width: 100px; /* минимальная ширина 100px */
-    background: #7b8a91; /* холодный серо-голубой фон */
-    color: #fff; /* белый цвет текста */
-    text-decoration: none; /* убирает подчеркивание */
-    border-radius: 5px; /* закругленные углы */
-    transition: background 0.3s ease, transform 0.3s ease; /* плавные переходы */
+	padding: 10px;
+	min-width: 100px;
+	background: #7b8a91; /* холодный серо-голубой */
+	color: #fff;
+	text-decoration: none;
+	border-radius: 5px;
+	transition: background 0.3s ease, transform 0.3s ease;
 }
-
-/* Стили для ссылок при наведении */
 p.link-read-post a:hover {
-    background: #5f6f79; /* темный цвет фона */
-    transform: scale(1.05); /* увеличиваем размер при наведении */
+	background: #5f6f79; /* более тёмный при наведении */
+	transform: scale(1.05);
 }
 
-/* Стили для панели статьи */
 div.article-panel {
-    background: rgba(233, 233, 233, 0.9); /* полупрозрачный фон */
-    padding: 5px 10px; /* отступы */
-    box-sizing: border-box; /* учитывает отступы и границы */
-    overflow: hidden; /* скрывает все, что выходит за пределы */
-    color: #4a5a6a; /* цвет текста */
-    transition: background 0.3s ease, box-shadow 0.3s ease; /* плавные переходы */
+	background: rgba(233, 233, 233, 0.9); /* более светлый полупрозрачный фон */
+	padding: 5px 10px;
+	box-sizing: border-box;
+	overflow: hidden;
+	color: #4a5a6a;
+	transition: background 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* Стили для панели статьи при наведении */
 div.article-panel:hover {
-    background: rgba(233, 233, 233, 1); /* фон без прозрачности */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* тень */
+	background: rgba(233, 233, 233, 1);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Стили для первого абзаца в панели */
 div.article-panel p.first {
-    margin: 0; /* убирает отступы */
-    float: left; /* располагает текст слева */
+	margin: 0;
+	float: left;
 }
-
-/* Стили для последнего абзаца в панели */
 div.article-panel p.last {
-    margin: 0; /* убирает отступы */
-    float: right; /* располагает текст справа */
+	margin: 0;
+	float: right;
 }
 
-/* Стили для списка статей */
 ul.list-articles {
-    list-style: none; /* убирает маркеры списка */
-    margin: 0; /* убирает отступы */
-    padding: 0; /* убирает внутренние отступы */
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
-
-/* Стили для элементов списка статей */
 ul.list-articles li {
-    border-bottom: 1px solid #ccc; /* нижняя граница */
+	border-bottom: 1px solid #ccc;
 }
 
-/* Стили для таблицы */
 .table-page {
-    width: 100%; /* ширина таблицы 100% */
-    height: 100%; /* высота таблицы 100% */
-    vertical-align: top; /* выравнивание по вертикали */
+	width: 100%;
+	height: 100%;
+	vertical-align: top;
 }
-
-/* Стили для строк таблицы */
 .table-page tr {
-    height: 100%; /* высота строк 100% */
+	height: 100%;
 }
 
-/* Стили для очистки */
 .clear {
-    clear: both; /* убирает обтекание элементов */
+	clear: both;
 }
 
-/* Стили для шапки страницы */
 .header {
-    background: #5b6b6d; /* серо-зеленый фон */
-    height: 60px; /* высота шапки */
-    transition: background 0.3s ease; /* плавный переход фона */
+	background: #5b6b6d; /* холодный серо-зелёный */
+	height: 60px;
+	transition: background 0.3s ease;
 }
 
-/* Стили для шапки страницы при наведении */
 .header:hover {
-    background: #4a5a5a; /* темный фон при наведении */
+	background: #4a5a5a; /* более тёмный при наведении */
 }
 
-/* Логотип на шапке */
 .logo {
-    background: url('../images/logo.png') no-repeat 10px 5px; /* фоновое изображение */
-    width: 70px; /* ширина логотипа */
-    height: 60px; /* высота логотипа */
+	background: url('../images/logo.png') no-repeat 10px 5px;
+	width: 70px;
+	height: 60px;
 }
 
-/* Стили для основного меню */
 ul.mainmenu {
-    list-style: none; /* убирает маркеры списка */
-    margin: 0; /* убирает отступы */
-    padding: 0; /* убирает внутренние отступы */
-    height: 60px; /* высота меню */
-    color: #a0b6b8; /* мягкий серо-голубой цвет текста */
-    font-size: 20px; /* размер шрифта */
-    overflow: hidden; /* скрывает лишнее */
-    transition: background 0.3s ease; /* плавный переход фона */
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: 60px;
+	color: #a0b6b8; /* мягкий серо-голубой */
+	font-size: 20px;
+	overflow: hidden;
+	transition: background 0.3s ease;
 }
-
-/* Стили для элементов меню */
 ul.mainmenu li {
-    float: left; /* элементы располагаются в ряд */
-    margin: 18px 40px 0 30px; /* отступы */
+	float: left;
+	margin: 18px 40px 0 30px;
 }
-
-/* Стили для последнего элемента меню */
+ul.mainmenu li.logo {
+	margin: 0;
+}
 ul.mainmenu li.last {
-    float: right; /* последний элемент справа */
+	float: right;
 }
 
-/* Стили для ссылок в меню */
 ul.mainmenu li a {
-    color: #a0b6b8; /* цвет текста */
-    text-decoration: none; /* убирает подчеркивание */
-    transition: color 0.3s ease; /* плавный переход цвета */
+	color: #a0b6b8;
+	text-decoration: none;
+	transition: color 0.3s ease;
 }
-
-/* Стили для ссылок в меню при наведении */
 ul.mainmenu li a:hover {
-    color: #64888b; /* более холодный цвет при наведении */
+	color: #64888b; /* более холодный при наведении */
 }
 
-/* Стили для панели с элементами */
 .panelitems {
-    text-align: center; /* выравнивание по центру */
+	text-align: center;
 }
 
-
-/* Стили для списка языков */
 ul.langitem {
-    list-style: none; /* убирает маркеры списка */
-    display: inline-block; /* элементы списка в ряд */
-    margin: 30px; /* отступы */
-    padding: 0; /* убирает внутренние отступы */
-    max-width: 300px; /* максимальная ширина 300px */
+	list-style: none;
+	display: inline-block;
+	margin: 30px;
+	padding: 0;
+	max-width: 300px;
 }
-
-/* Стили для элементов списка языков */
 ul.langitem li {
-    margin: 10px 0; /* отступы */
-    width: 100%; /* ширина 100% */
+	margin: 10px 0;
+	width: 100%;
 }
-
-/* Стили для изображений в списке языков */
 ul.langitem li.image {
-    margin: 0; /* убирает отступы */
-    text-align: center; /* выравнивание по центру */
-    width: 100%; /* ширина 100% */
-    height: 250px; /* высота 250px */
-    overflow: hidden; /* скрывает лишнее */
-    transition: transform 0.3s ease; /* плавное изменение размера */
+	margin: 0;
+	text-align: center;
+	width: 100%;
+	height: 250px;
+	overflow: hidden;
+	transition: transform 0.3s ease;
 }
-
-/* Стили для изображения при наведении */
 ul.langitem li.image:hover {
-    transform: scale(1.05); /* увеличение при наведении */
+	transform: scale(1.05);
 }
-
-/* Стили для описания языка */
 ul.langitem li.descr {
-    color: #7a7a7a; /* мягкий серый цвет текста */
-    height: 170px; /* высота описания */
-    overflow: hidden; /* скрывает лишнее */
+	color: #7a7a7a; /* мягкий серый для текста */
+	height: 170px;
+	overflow: hidden;
 }
-
-/* Стили для ссылок в списке языков */
 ul.langitem li a {
-    color: #a0b6b8; /* цвет текста */
-    text-decoration: none; /* убирает подчеркивание */
-    font-size: 20px; /* размер шрифта */
-    transition: color 0.3s ease; /* плавный переход цвета */
+	color: #a0b6b8;
+	text-decoration: none;
+	font-size: 20px;
+	transition: color 0.3s ease;
 }
-
-/* Стили для ссылок при наведении */
 ul.langitem li a:hover {
-    color: #609599; /* более холодный цвет при наведении */
+	color: #609599;
 }
 
-/* Стили для кнопки */
 div.button {
-    background: #5b6b6d; /* холодный серо-зеленый фон */
-    max-width: 200px; /* максимальная ширина 200px */
-    margin: 0 auto; /* выравнивание по центру */
-    padding: 5px 20px; /* отступы */
-    border-radius: 10px; /* закругленные углы */
-    font-size: 20px; /* размер шрифта */
-    transition: background 0.3s ease, transform 0.3s ease; /* плавный переход фона и размера */
+	background: #5b6b6d;
+	max-width: 200px;
+	margin: 0 auto;
+	padding: 5px 20px;
+	border-radius: 10px;
+	font-size: 20px;
+	transition: background 0.3s ease, transform 0.3s ease;
 }
-
-/* Стили для кнопки при наведении */
 div.button:hover {
-    background: #4a5a5a; /* темный фон при наведении */
-    transform: scale(1.05); /* увеличение кнопки */
+	background: #4a5a5a;
+	transform: scale(1.05);
 }
 
-/* Стили для таблицы контента */
 .table-content {
-    width: 100%; /* ширина 100% */
-    min-height: 100%; /* минимальная высота 100% */
-    height: 100%; /* высота 100% */
+	width: 100%;
+	min-height: 100%;
+	height: 100%;
 }
 
-/* Стили для левой части страницы с главами */
 .left-chapters {
-    margin: 0; /* убирает отступы */
-    background: #f0f6f6; /* светлый холодный фон */
-    border-right: 1px solid #ccc; /* правая граница */
-    min-height: 100%; /* минимальная высота 100% */
+	margin: 0;
+	background: #f0f6f6; /* холодный светлый фон */
+	border-right: 1px solid #ccc;
+	min-height: 100%;
 }
 
-/* Стили для списка глав */
 .left-chapters ul {
-    width: 230px; /* ширина 230px */
-    min-height: 100%; /* минимальная высота 100% */
-    margin: 0; /* убирает отступы */
-    padding: 20px 10px 10px 20px; /* отступы */
-    list-style: none; /* убирает маркеры */
-    font-size: 20px; /* размер шрифта */
+	width: 230px;
+	min-height: 100%;
+	margin: 0;
+	padding: 20px 10px 10px 20px;
+	list-style: none;
+	font-size: 20px;
 }
-
-/* Стили для элементов списка глав */
 .left-chapters ul li {
-    margin: 30px 0 0 0; /* отступы */
-    color: #7a7a7a; /* мягкий серый цвет */
+	margin: 30px 0 0 0;
+	color: #7a7a7a;
 }
-
-/* Стили для выбранных элементов списка */
 .left-chapters ul li.selected {
-    color: #2f2f2f; /* более темный цвет */
+	color: #3a5a64; /* холодный тёмный синий */
+}
+.left-chapters ul li a {
+	color: #4a5a6a;
+	text-decoration: none;
+}
+.left-chapters ul li a:hover {
+	color: #55788b;
+}
+.left-chapters ul li.share {
+	margin: 60px 0 0 0;
+}
+.left-chapters ul li.share p {
+	margin: 30px 0;
+}
+.left-chapters ul li.share a {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin: 0 20px 0 0;
+}
+.left-chapters ul li.share a.share-yt {
+	width: 100%;
+	height: 30px;
+	background: url('../images/share_yt.png') no-repeat 0 0;
+}
+.left-chapters ul li.share a.share-yt:hover {
+	width: 100%;
+	height: 30px;
+	background: url('../images/share_yt.png') no-repeat 0 -30px;
 }
 
-/* Стили для абзацев */
+.content {
+	padding: 40px 20px 20px 40px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+ul.breadcrumbs {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 20px;
+	font-family: Sans-serif, Arial, Tahoma;
+}
+ul.breadcrumbs li {
+	display: inline-block;
+}
+ul.breadcrumbs li a {
+	color: #6a8f97;
+	text-decoration: none;
+}
+ul.breadcrumbs li a:hover {
+	color: #55788b;
+}
+ul.breadcrumbs li:after {
+	padding: 0 10px;
+	content: "\2192";
+}
+ul.breadcrumbs li.last:after {
+	content: "";
+}
+
+ul.control {
+	margin: 0;
+	padding: 60px 0 0 0;
+	list-style: none;
+	font-family: Sans-serif, Arial, Tahoma;
+	font-size: 18px;
+	width: 100%;
+}
+ul.control li {
+	float: left;
+	padding: 0 0 0 10px;
+}
+ul.control li.first:before {
+	content: "\2190";
+	padding: 0 10px 0 0;
+}
+ul.control li.last {
+	float: right;
+	padding: 0 40px 0 0;
+}
+ul.control li.last:after {
+	content: "\2192";
+	padding: 0 0 0 10px;
+}
+ul.control li a {
+	color: #6a8f97;
+	text-decoration: none;
+}
+ul.control li a:hover {
+	color: #55788b;
+}
+
+ul.content-table {
+	margin: 0;
+	padding: 60px 0 0 30px;
+	list-style: none;
+	font-family: Sans-serif, Arial, Tahoma;
+	font-size: 28px;
+}
+ul.content-table li {
+	margin: 0 0 40px 0;
+}
+ul.content-table li a {
+	color: #6a8f97;
+	text-decoration: none;
+}
+ul.content-table li a:hover {
+	color: #55788b;
+}
+
+ul.table-article {
+	list-style: none;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	font-family: Arial, Sans-serif;
+}
+ul.table-article li {
+	margin: 30px 0;
+}
+ul.table-article li a {
+	color: #7a7a7a;
+	text-decoration: none;
+}
+ul.table-article li a:hover {
+	color: #55788b;
+}
+
 p.middle {
-    text-align: center; /* выравнивание текста по центру */
+	text-align: center;
 }

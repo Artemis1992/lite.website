@@ -1,7 +1,6 @@
 {% load static %}
 {% load people_tags %}
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,9 +31,9 @@
                 <!-- Логотип -->
                 <li class="logo"><a href="{% url "home" %}"><div class="logo"></div></a></li>
                 
-                <!-- Пользовательский тег. элементы меню -->
+                <!-- Перебор меню в пользовательском теге -->
                 {% show_menu %}
-                
+            
             </ul>
             <div class="clear"></div>
         </div>
@@ -45,15 +44,17 @@
     
     <!-- Боковая панель (слева) с категориями -->
     <td valign="top" class="left-chapters">
-        
+
+        <!--  {% getcats as categories %} --> <!--Пользовательский тег "simple_tag"-->
+
         <ul id="leftchapters">
             {% if cat_selected == 0 %}
             <li class="selected">Все категории</li>
         {% else %}
             <li><a href="{% url 'home' %}">Все категории</a></li>
         {% endif %}
-
-        {% show_categories cat_selected=cat_selected %} {# Включающий тег для отображения категорий, отсортированных по имени. cat_selected — ID выбранной категории. #}
+        
+        {% show_categories %} <!--Ссылка на пользовательский тег inclusion_tag, находится по адрессу people_tags.py-->
         
             <li class="share">
                 <!-- Информация о канале YouTube -->

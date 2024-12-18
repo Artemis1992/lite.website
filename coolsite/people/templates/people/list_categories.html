@@ -1,19 +1,11 @@
+<!-- Это шаблон для отображения списка категорий пользовательского тега. 
+    Если текущая категория совпадает с выбранной, то она отображается с классом "selected". 
+    Все остальные категории отображаются как ссылки на страницы с использованием метода get_absolute_url для получения URL каждой категории. -->
 
-<!-- Левый блок с категориями -->
-<ul id="leftchapters">
-    {% for c in cats %}
-        {% if c.pk == cat_selected %}
-            <li class="selected">{{ c.name }}</li>
-        {% else %}
-            <li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
-        {% endif %}
-    {% endfor %}
-</ul>
-  
-
-
-
-
-
-
-
+{% for c in cats %}
+    {% if c.pk == cat_selected %}
+        <li class="selected">{{ c.name }}</li>
+    {% else %}
+        <li><a href='{{ c.get_absolute_url }}'>{{ c.name }}</a></li>
+    {% endif %}
+{% endfor %}
