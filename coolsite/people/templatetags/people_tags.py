@@ -1,26 +1,27 @@
 from django import template
-from people.models import *
-from people.views import menu, show_post
-
-register = template.Library()
+from people.models import *  # Импортируем все модели из people приложения
+from people.views import menu  # Импортируем переменную menu из views
 
 
+register = template.Library()  # Создаем экземпляр библиотеки шаблонов
 
-@register.simple_tag(name="getcats") # мы изменили имя с get_categories на getcats.
+
+# Определение тега шаблона getcats, который возвращает все категории
+@register.simple_tag(name="getcats")  # Задаем имя тега "getcats"
 def get_categories():
-    return Category.objects.all()
+    return Category.objects.all()  # Возвращаем все объекты категории
 
 
-
-@register.inclusion_tag('people/list_categories.html')
+# Определение тега шаблона show_categories, который рендерит список категорий
+@register.inclusion_tag('people/list_categories.html')  # Шаблон для отображения категорий
 def show_categories():
-    cats = Category.objects.all()
-    return {'cats': cats}
+    cats = Category.objects.all()  # Получаем все категории
+    return {'cats': cats}  # Передаем категории в шаблон
 
 
-@register.inclusion_tag('people/list_menu.html')
+# Определение тега шаблона show_menu, который рендерит меню
+@register.inclusion_tag('people/list_menu.html')  # Шаблон для отображения меню
 def show_menu():
     return {
-        'menu': menu,
+        'menu': menu,  # Передаем переменную menu в шаблон
     }
-

@@ -1,8 +1,3 @@
-# HttpResponse: возвращает простой HTTP-ответ с текстом, который может быть строкой HTML.
-# render: рендерит HTML-шаблон с возможностью передавать контекстные данные в шаблон для более сложной логики отображения.
-# redirect: выполняет перенаправление на другой URL. Можно использовать параметр permanent для указания, является ли перенаправление временным (302) или постоянным (301).
-# HttpResponseNotFound: возвращает ошибку 404 с указанным HTML-сообщением.
-
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -14,8 +9,10 @@ menu = [{"title": "О сайте", "url_name": "about"},
         {"title": "Войти", "url_name": "login"},
 ]
 
+
+# Главная страница, отображает все записи
 def index(request):
-    posts = People.objects.all()
+    posts = People.objects.all()  # Получаем все записи из модели People
 
     context = {
         'posts': posts,        # Список записей
@@ -26,26 +23,27 @@ def index(request):
     return render(request, 'people/index.html', context=context)
 
 
-def show_post(request, post_id):
-    post = get_object_or_404(People, pk=post_id) 
-    
+
+# Отображение конкретного поста
+def show_post(request, post_slug):
+    post = get_object_or_404(People, slug=post_slug)  # Получаем пост или вызываем 404, если не найден
+
     context = {
         'post': post,
         'title': post.title,
-        'cat_selected': post.cat_id,
+        'cat_selected': post.cat_id,  # Идентификатор выбранной категории
     }
 
     return render(request, 'people/post.html', context=context)
-    
-    
-    # return HttpResponse(f"Отображение статьи с id = {post_id}")
 
 
+
+# Отображение постов по категории
 def show_category(request, cat_id):
-    posts = People.objects.filter(cat_id=cat_id) 
+    posts = People.objects.filter(cat_id=cat_id)  # Получаем посты по категории
 
     if len(posts) == 0:
-        raise Http404
+        raise Http404  # Если посты не найдены, генерируем ошибку 404
     
     context = {
         'posts': posts,
@@ -54,19 +52,22 @@ def show_category(request, cat_id):
     }
     return render(request, 'people/index.html', context=context)
      
+# Страница "О сайте"
 def about(request):
     return render(request, 'people/about.html', {"menu": menu, 'title': 'О сайте'})
 
+# Страница для добавления статьи
 def addpage(request):
     return HttpResponse("Добавление статьи")
 
+# Страница обратной связи
 def contact(request):
     return HttpResponse("Обратная сязь")
 
+# Страница для авторизации
 def login(request):
     return HttpResponse("Авторизация")
 
+# Обработчик страницы 404
 def pageNotFound(request, exception):
-    return HttpResponseNotFound("<h1>Страница не найдена</h1>")
-
-
+    return HttpResponseNotFound("<h1>Страница не найдена</h1>")  # Возвращаем ошибку 404 с сообщением
