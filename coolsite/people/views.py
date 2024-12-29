@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 
+from .forms import *
 from .models import *
 
 menu = [{"title": "О сайте", "url_name": "about"},
@@ -33,7 +34,7 @@ def show_post(request, post_slug):
         'title': post.title,
         'cat_selected': post.cat_id,  # Идентификатор выбранной категории
     }
-
+    
     return render(request, 'people/post.html', context=context)
 
 
@@ -51,22 +52,41 @@ def show_category(request, cat_id):
         'cat_selected': cat_id,
     }
     return render(request, 'people/index.html', context=context)
-     
+ 
+ 
+    
 # Страница "О сайте"
 def about(request):
     return render(request, 'people/about.html', {"menu": menu, 'title': 'О сайте'})
 
+
 # Страница для добавления статьи
 def addpage(request):
-    return HttpResponse("Добавление статьи")
+    if request.method == "POST":
+        form = AddPostForm(request.POST) # Форма с заполненными данными
+        if form.is_valid(): # Проверка корректности данных
+            # print(form.cleaned_data) # Вывод очищенных данных в консоль
+            try:
+                People.objects.create(**form.cleaned_data)
+                return redirect("home")
+            except:
+                form.add_error(None, "Ошибка добавление поста")
+        else:
+            form =AddPostForm() # Пустая форма, если данные некорректны
+    else:
+        form = AddPostForm() # Пустая форма для первого отображения
+    
+    return render(request, 'people/addpage.html', {'form': form, 'menu': menu, 'title': "Добавление статьи"})
+
+
 
 # Страница обратной связи
 def contact(request):
-    return HttpResponse("Обратная сязь")
+    return render(request, 'people/contact.html', {'menu': menu, 'title': "Обратная сязь"})
 
 # Страница для авторизации
 def login(request):
-    return HttpResponse("Авторизация")
+    return render(request, 'people/login.html', {"menu": menu, "title": "Авторизация"})
 
 # Обработчик страницы 404
 def pageNotFound(request, exception):
