@@ -62,21 +62,21 @@ def about(request):
 
 # Страница для добавления статьи
 def addpage(request):
+    # Если запрос был отправлен методом POST (пользователь отправил форму)
     if request.method == "POST":
-        form = AddPostForm(request.POST) # Форма с заполненными данными
-        if form.is_valid(): # Проверка корректности данных
-            # print(form.cleaned_data) # Вывод очищенных данных в консоль
-            try:
-                People.objects.create(**form.cleaned_data)
-                return redirect("home")
-            except:
-                form.add_error(None, "Ошибка добавление поста")
-        else:
-            form =AddPostForm() # Пустая форма, если данные некорректны
-    else:
-        form = AddPostForm() # Пустая форма для первого отображения
-    
-    return render(request, 'people/addpage.html', {'form': form, 'menu': menu, 'title': "Добавление статьи"})
+        form = AddPostForm(request.POST, request.FILES) # Форма с заполненными данными
+        if form.is_valid(): # Проверяем, валидны ли данные, введённые пользователем
+            # Перенаправляем пользователя на главную страницу после успешного добавления
+            form.save()
+            return redirect("home")
+    else:# Если пользователь просто открыл страницу
+        form = AddPostForm() # Создаём пустую форму
+    # Возвращаем шаблон `addpage.html`, передавая форму, меню и заголовок страницы
+    return render(request, 'people/addpage.html', {
+        'form': form, 
+        'menu': menu, 
+        'title': "Добавление статьи"
+    })
 
 
 
