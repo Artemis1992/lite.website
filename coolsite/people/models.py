@@ -47,7 +47,7 @@ class Category(models.Model):
         return self.name  # Для отображения названия категории в админке
     
     def get_absolute_url(self):
-        return reverse("category", kwargs={"cat_id": self.pk})
+        return reverse("category", kwargs={"cat_slug": self.slug})
 
     class Meta:
         verbose_name = 'категорию' # Название модели в единственном числе.
