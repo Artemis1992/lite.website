@@ -19,7 +19,7 @@ class People(models.Model):
         return reverse("post", kwargs={"post_id": self.pk})
 
     class Meta:
-        verbose_name = "знаменитость"
+        verbose_name = "Знаменитость"
         verbose_name_plural = 'Знаменитости'
         ordering = ['time_create', 'title']
         
