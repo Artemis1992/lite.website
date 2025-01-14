@@ -53,8 +53,15 @@
             <li><a href="{% url 'home' %}">Все категории</a></li>
         {% endif %}
         
-        {% show_categories %} <!--Ссылка на пользовательский тег inclusion_tag, находится по адрессу people_tags.py-->
+        <!-- {% show_categories cat_selected=cat_selected %} <!--Ссылка на пользовательский тег inclusion_tag, находится по адрессу people_tags.py-->
         
+        {% for c in cats %}
+            {% if c.pk == cat_selected %}
+                <li class="selected">{{c.name}}</li>
+            {% else %}
+                <li><a href="{{ c.get_absolute_url }}">{{c.name}}</a></li>
+            {% endfor %}
+            
             <li class="share">
                 <!-- Информация о канале YouTube -->
                 <p>Канал где проходили курсы.</p>
