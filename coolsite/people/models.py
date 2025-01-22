@@ -23,7 +23,7 @@ class People(models.Model):
     class Meta:
         verbose_name = "знаменитость"
         verbose_name_plural = 'Знаменитости'
-        ordering = ['time_create', 'title']
+        # ordering = ['time_create', 'title']
         
         
         

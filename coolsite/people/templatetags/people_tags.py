@@ -1,6 +1,7 @@
 from django import template
 from people.models import *
-from people.views import menu, show_post
+from people.views import *
+from people.utils import *
 
 register = template.Library()
 

@@ -1,14 +1,17 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import get_object_or_404, redirect, render
-
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin 
+from django.contrib.auth.decorators import login_required # Декоратор для ограничения доступа к авторизованным пользователям
 
 from .forms import *
 from .models import *
+from .utils import *
 
 
 
-class PeopleHome(ListView):
+class PeopleHome(DataMixin, ListView):
     model = People
     template_name = "people/index.html" # Вместо создание нового шаблона указываем старый.
     context_object_name = "posts" # Для того чтобы оставить posts в шаблолне index.html, явно указываем ее. 
@@ -16,10 +19,8 @@ class PeopleHome(ListView):
     # Формирование контекста
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs) # Получаем базовый контекст от родительского класса
-        context['menu'] = menu
-        context['title'] = 'Главная страница'
-        context['cat_selected'] = 0
-        return context
+        c_def = self.get_user_context(title='Главная страница')
+        return dict(list(context.items()) + list(c_def.items()))
     
     def get_queryset(self):
         return People.objects.filter(is_published=True)
@@ -37,7 +38,7 @@ class PeopleHome(ListView):
 #     return render(request, 'people/index.html', context=context)
 
 
-class ShowPost(DetailView):
+class ShowPost(DataMixin, DetailView):
     model = People
     template_name = "people/post.html"
     slug_url_kwarg = "post_slug"
@@ -45,9 +46,8 @@ class ShowPost(DetailView):
     
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = context['post']
-        context['menu'] = menu
-        return context
+        c_def = self.get_user_context(title=context['post'])
+        return {**context, **c_def} 
 
     
 
@@ -65,21 +65,26 @@ class ShowPost(DetailView):
 
 
 
-class PeopleCategory(ListView):
+class PeopleCategory(DataMixin, ListView):
     model = People
     template_name = 'people/index.html'
     context_object_name = 'posts'
     # allow_empty = False
     
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context =  super().get_context_data(**kwargs)
-        context['title'] = 'Категория - ' + str(context['posts'][0].cat)
-        context['menu'] = menu
-        context['cat_selected'] = context['posts'][0].cat_id
-        return context
-    
     def get_queryset(self):
         return People.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
+    
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Категория - " + str(context["posts"][0].cat),
+                                      cat_selected=context["posts"][0].cat_id)
+        return dict(list(context.items()) + list(c_def.items()))
+        # if isinstance(c_def, dict):
+        #     return {**context, **c_def}
+        # else:
+        #     return context
+    
+
 
 
 
@@ -100,19 +105,23 @@ class PeopleCategory(ListView):
  
     
 # Страница "О сайте"
+# @login_required  # Декоратор, обеспечивающий доступ к функции только для авторизованных пользователей
 def about(request):
     return render(request, 'people/about.html', {"menu": menu, 'title': 'О сайте'})
 
 
-class AddPage(CreateView):
+class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = "people/addpage.html"
+    # seccess_url = reverse_lazy("home")
+    login_url = "/admin/"   # Временно выставили для того чтобы через админ панель можно было добавлять посты.
+    # login_url = reverse_lazy("home")
+    # raise_exception = True  # Формирует страницу 403 доступ запрещен.
     
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Добавление статьи"
-        context['menu'] = menu
-        return context
+        c_def = self.get_user_context(title="Добавление статьи")
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 # # Страница для добавления статьи
@@ -139,15 +148,13 @@ class AddPage(CreateView):
 def contact(request):
     return render(request, 'people/contact.html', {'menu': menu, 'title': "Обратная сязь"})
 
-# Страница для авторизации
+# Страница для авторизации    
 def login(request):
     return render(request, 'people/login.html', {"menu": menu, "title": "Авторизация"})
 
 # Обработчик страницы 404
 def pageNotFound(request, exception):
     return HttpResponseNotFound("<h1>Страница не найдена</h1>")  # Возвращаем ошибку 404 с сообщением
-
-
 
 
 
