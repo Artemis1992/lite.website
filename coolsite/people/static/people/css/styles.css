@@ -367,3 +367,58 @@ ul.table-article li a:hover {
 p.middle {
 	text-align: center;
 }
+
+.list-pages {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.list-pages ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.list-pages ul li {
+    display: inline-block;
+    margin: 0 10px; /* Расстояние между кнопками */
+}
+
+/* Базовые стили для кнопок */
+.list-pages a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #b3c2b9; /* Холодный серо-зеленый цвет для рамки */
+    border-radius: 50%; /* Делаем кнопки круглыми */
+    background-color: #eaf2ef; /* Светлый серо-зеленый фон */
+    color: #4a6057; /* Темно-зеленый текст */
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s ease; /* Плавный переход */
+}
+
+/* Эффект при наведении */
+.list-pages a:hover {
+    background-color: #d1e3db; /* Более насыщенный серо-зеленый фон */
+    border-color: #7da392; /* Тёмно-зеленая рамка */
+    color: #325046; /* Ещё более тёмный зеленый текст */
+    transform: scale(1.1); /* Лёгкое увеличение */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
+}
+
+/* Стили для текущей страницы */
+.list-pages .page-num-selected {
+    background-color: #7da392; /* Глубокий серо-зеленый фон */
+    border-color: #5b8772; /* Ещё более тёмная рамка */
+    color: #fff; /* Белый текст */
+    font-weight: bold;
+}
+
+.list-pages .page-num-selected:hover {
+    background-color: #5b8772; /* Более глубокий серо-зеленый фон */
+    box-shadow: 0 4px 8px rgba(91, 135, 114, 0.4); /* Тень в зелёном оттенке */
+    transform: none; /* Без увеличения для текущей страницы */
+}

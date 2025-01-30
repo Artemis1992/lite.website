@@ -89,6 +89,46 @@
         <div class="content-text">
             {% block content %}
             {% endblock %}
+
+            {% if page_obj.has_other_pages %}
+            
+            <nav class="list-pages">
+                <ul>
+                    <!-- Ссылка на первую страницу -->
+                    {% if page_obj.number > 1 %}
+                    <li class="page-num">
+                        <a href="?page=1" class="page-num">&larr;</a>
+                    </li>
+                    {% endif %}
+            
+                    <!-- Ссылки на страницы в диапазоне ±1 -->
+                    {% for p in paginator.page_range %}
+                    {% if p == page_obj.number %}
+                    <li class="page-num">
+                        <a href="?page={{ p }}" class="page-num-selected">
+                            {{ p }}
+                        </a>
+                    </li>
+                    {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
+                    <li class="page-num">
+                        <a href="?page={{ p }}" class="page-num">
+                            {{ p }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+            
+                    <!-- Ссылка на последнюю страницу -->
+                    {% if page_obj.number < paginator.num_pages %}
+                    <li class="page-num">
+                        <a href="?page={{ paginator.num_pages }}" class="page-num">&rarr;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            
+            {% endif %}
+
         </div>
     </td>
     

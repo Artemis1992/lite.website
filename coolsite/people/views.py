@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.contrib.auth.decorators import login_required # Декоратор для ограничения доступа к авторизованным пользователям
+from django.core.paginator import Paginator
 
 from .forms import *
 from .models import *
@@ -103,11 +104,20 @@ class PeopleCategory(DataMixin, ListView):
 #     return render(request, 'people/index.html', context=context)
  
  
+ 
+ 
     
 # Страница "О сайте"
 # @login_required  # Декоратор, обеспечивающий доступ к функции только для авторизованных пользователей
 def about(request):
-    return render(request, 'people/about.html', {"menu": menu, 'title': 'О сайте'})
+    contact_list = People.objects.all()
+    paginator = Paginator(contact_list, 3)
+    
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'people/about.html', {'page_obj': page_obj, "menu": menu, 'title': 'О сайте'})
+
+
 
 
 class AddPage(LoginRequiredMixin, DataMixin, CreateView):
