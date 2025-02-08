@@ -124,7 +124,7 @@ class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = "people/addpage.html"
     # seccess_url = reverse_lazy("home")
-    login_url = "/admin/"   # Временно выставили для того чтобы через админ панель можно было добавлять посты.
+    login_url = "/register/"   # Временно выставили для того чтобы через админ панель можно было добавлять посты.
     # login_url = reverse_lazy("home")
     # raise_exception = True  # Формирует страницу 403 доступ запрещен.
     
@@ -166,6 +166,16 @@ def login(request):
 def pageNotFound(request, exception):
     return HttpResponseNotFound("<h1>Страница не найдена</h1>")  # Возвращаем ошибку 404 с сообщением
 
+# Страница для регистрации 
+class RegisterUser(DataMixin, CreateView):
+    form_class = RegisterUserForm # Используем класс формы из файла forms.py
+    template_name = 'people/register.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Регистрация')
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 

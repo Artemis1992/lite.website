@@ -1,31 +1,75 @@
 {% extends 'people/base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
+    <h1 class="center-title">{{ title }}</h1>
 
-<form action="{% url 'add_page' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    
-    <div class="form-error">{{ form.non_field_errors }}</div>
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% for f in form %}
+                <div class="form-field">
+                    <label class="form-label" for="{{ f.id_for_label }}">
+                        {% if f.name == 'title' %}
+                            Заголовок:
+                        {% elif f.name == 'content' %}
+                            Контент:
+                        {% elif f.name == 'photo' %}
+                            Изображение:
+                        {% elif f.name == 'slug' %}
+                            Слаг:
+                        {% elif f.name == 'cat' %}
+                            Категория:
+                        {% else %}
+                            {{ f.label }}
+                        {% endif %}
+                    </label>
+                    <div class="form-field-input">
+                        {% if f.name == 'title' %}
+                            <input type="text" name="{{ f.name }}" id="{{ f.id_for_label }}" placeholder="Введите заголовок" value="{{ f.value|default:'' }}" />
+                        {% elif f.name == 'content' %}
+                            <textarea name="{{ f.name }}" id="{{ f.id_for_label }}" placeholder="Введите контент">{{ f.value|default:'' }}</textarea>
+                        {% elif f.name == 'slug' %}
+                            <input type="text" name="{{ f.name }}" id="{{ f.id_for_label }}" placeholder="Введите слаг" value="{{ f.value|default:'' }}" />
+                        {% elif f.name == 'photo' %}
+                            <input type="file" name="{{ f.name }}" id="{{ f.id_for_label }}" />
+                        {% elif f.name == 'cat' %}
+                            <select name="{{ f.name }}" id="{{ f.id_for_label }}">
+                                <option value="">Выберите категорию</option>
+                                {% for choice in f.field.choices %}
+                                    <option value="{{ choice.0 }}" {% if choice.0 == f.value %}selected{% endif %}>
+                                        {{ choice.1 }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            {{ f }}
+                        {% endif %}
+                    </div>
+                    {% if f.errors %}
+                        <div class="form-error">
+                            {% for error in f.errors %}
+                                <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
 
-
-    {% for f in form %}
-    <div style="margin-bottom: 10px;">
-        <label class="form-label" for="{{ f.id_for_label }}" style="display: inline-block; width: 90px;">{{ f.label }}: </label>
-        
-        {{ f }}
-        <div class="form-error">{{ f.errors }}</div>
+            <div class="checkbox-container">
+                {% if f.name == 'some_checkbox_field' %}
+                    <label for="{{ f.id_for_label }}">
+                        <input type="checkbox" name="{{ f.name }}" id="{{ f.id_for_label }}" />
+                        Прочитал и согласен с условиями
+                    </label>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="submit-btn">Добавить</button>  
+        </form>
     </div>
-    {% endfor %}
-    
-    <button type="submit" style="margin-top: 20px;">Добавить</button>
-</form>
 
 {% endblock %}
-
-
-
-
 
 
 

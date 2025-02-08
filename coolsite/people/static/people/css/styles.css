@@ -422,3 +422,187 @@ p.middle {
     box-shadow: 0 4px 8px rgba(91, 135, 114, 0.4); /* Тень в зелёном оттенке */
     transform: none; /* Без увеличения для текущей страницы */
 }
+
+/* Центрирование формы */
+.form-container {
+    display: flex; /* Используем flexbox для выравнивания элементов */
+    justify-content: center; /* Горизонтальное выравнивание по центру */
+    align-items: flex-start; /* Вертикальное выравнивание сверху */
+    min-height: 100vh; /* Минимальная высота контейнера на весь экран */
+    text-align: center; /* Текст по центру */
+    padding-top: 70px; /* Отступ сверху для отступа от шапки */
+    overflow: hidden; /* Скрываем элементы, выходящие за пределы контейнера */
+    width: 100%; /* Ширина контейнера на весь экран */
+}
+
+/* Формирование формы */
+form {
+    width: 200%; /* Устанавливаем ширину формы в 200% от родительского контейнера */
+    max-width: 500px; /* Ограничиваем максимальную ширину формы */
+    padding: 20px; /* Отступы внутри формы */
+    background-color: #f9f9f9; /* Цвет фона формы */
+    border-radius: 8px; /* Скругление углов формы */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень вокруг формы */
+    box-sizing: border-box; /* Включаем padding и border в общую ширину */
+}
+
+/* Стили для полей ввода */
+.form-field input, .form-field select, .form-field textarea {
+    width: 100%; /* Все поля ввода занимают 100% ширины контейнера */
+    padding: 0.7rem; /* Отступы внутри полей */
+    border: 1px solid #ccc; /* Граница поля ввода */
+    border-radius: 4px; /* Скругленные углы */
+    font-size: 1rem; /* Размер шрифта */
+    margin-bottom: 1rem; /* Отступ снизу для каждого поля */
+    box-sizing: border-box; /* Включаем padding и border в общую ширину */
+    height: 40px; /* Высота всех полей одинакова */
+}
+
+/* Стили для кнопки */
+.submit-btn {
+    padding: 0.7rem 1.5rem; /* Отступы внутри кнопки */
+    background-color: #64888b; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none; /* Без рамки */
+    border-radius: 4px; /* Скругленные углы */
+    cursor: pointer; /* Курсор в виде руки */
+    margin-top: 1rem; /* Отступ сверху */
+    display: inline-block; /* Кнопка располагается по центру */
+    margin-left: auto; /* Автоматический отступ слева */
+    margin-right: auto; /* Автоматический отступ справа */
+    transition: background 0.5s ease; /* Плавный переход при наведении */
+}
+
+/* Кнопка при наведении */
+.submit-btn:hover {
+    background-color: #7da392; /* Цвет кнопки меняется при наведении */
+}
+
+/* Отключенная кнопка */
+.submit-btn:disabled {
+    background-color: #ccc; /* Цвет фона для отключенной кнопки */
+    cursor: not-allowed; /* Убираем курсор в виде руки */
+}
+
+/* Стили для заголовков и ошибок */
+.center-title {
+    text-align: center; /* Выравниваем заголовок по центру */
+    font-size: 2rem; /* Размер шрифта заголовка */
+    margin-bottom: 1rem; /* Отступ снизу */
+}
+
+.form-error {
+    color: red; /* Цвет ошибок красный */
+    font-size: 0.9rem; /* Размер шрифта для ошибок */
+    font-style: italic; /* Курсив для ошибок */
+    margin-top: 0.5rem; /* Отступ сверху */
+}
+
+.error-message {
+    margin: 0; /* Убираем отступы для сообщения об ошибке */
+}
+
+/* Стили для плейсхолдеров */
+.form-field input::placeholder, .form-field select::placeholder, .form-field textarea::placeholder {
+    color: #aaa; /* Цвет плейсхолдера */
+    font-style: italic; /* Курсив для текста плейсхолдера */
+}
+
+/* Когда пользователь кликает или фокусируется на поле, текст плейсхолдера исчезает */
+.form-field input:focus::placeholder, .form-field select:focus::placeholder, .form-field textarea:focus::placeholder {
+    color: transparent; /* Текст плейсхолдера исчезает */
+}
+
+/* Стиль при фокусе на поле */
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+    border-color: #4CAF50; /* Цвет границы при фокусе */
+    outline: none; /* Убираем стандартное обводку при фокусе */
+}
+
+/* Скрываем метки на форме */
+.form-label {
+    display: none; /* Скрываем все метки */
+}
+
+/* Стили для чекбокса */
+.form-field input[type="checkbox"] {
+    transform: scale(0.4); /* Уменьшаем чекбокс на 20% */
+    margin-right: 10px; /* Отступ справа для улучшения выравнивания */
+}
+
+/* Стили для чекбокса */
+.form-field input[type="checkbox"] {
+    transform: scale(0.4); /* Уменьшаем чекбокс, но не трогаем текст кнопки */
+    margin-right: 10px;
+}
+
+
+
+/* Контейнер для поля пароля */
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Стили для кнопки отображения пароля (такого же размера, как поле ввода) */
+.show-password-container {
+    position: absolute;
+    right: 0px;
+    top: 35.3%;
+    transform: translateY(-49%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10.7%;
+    height: 27.5%;
+    font-size: 15px; /* Увеличиваем шрифт только для кнопки */
+    cursor: pointer;
+    color: #64888b;
+    background-color: #64888b;
+    padding: 0.7rem 1rem;
+    padding-left: 0.3rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    user-select: none;
+    text-align: center;
+}
+
+
+.show-password-container .clickable-label {
+    display: flex; /* Используем flex для центрирования */
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Делаем всю кнопку кликабельной */
+    height: 100%;
+    cursor: pointer;
+	padding-right: 0px; /* Добавляем отступ справа */
+	padding-left: 15px; /* Сдвиг текста влево */
+
+}
+
+/* Цвет кнопки при наведении */
+.show-password-container:hover {
+    background-color: #7da392;
+}
+
+
+/* Стиль для текста внутри кнопки */
+.show-password-container label {
+    color: rgb(224, 237, 240);
+    cursor: pointer; /* Убираем обычный курсор и добавляем курсор при наведении */
+    margin-left: -5px; /* Это сдвигает текст влево относительно своей начальной позиции */
+    padding-left: 0; /* Очищаем отступы, если есть */
+}
+
+/* Скрытие чекбокса */
+.password-container input[type="checkbox"] {
+    display: none;
+}
+
+/* Стили для поля ввода пароля */
+.password-container input {
+    padding-right: 50px; /* Увеличиваем отступ справа, чтобы разместить кнопку */
+    height: 40px; /* Высота поля ввода */
+}
+

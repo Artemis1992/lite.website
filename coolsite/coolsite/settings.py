@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'people.apps.PeopleConfig',   # Полный путь к конфигурации приложения
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

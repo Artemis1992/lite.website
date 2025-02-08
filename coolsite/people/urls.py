@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/', login, name='login'),  # Авторизация
     path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'), #Посты
     path('category/<slug:cat_slug>/', PeopleCategory.as_view(), name='category'), # Маршрут для отображения постов определённой категории
+    path('register/', RegisterUser.as_view(), name='register'), 
 ]
 
 
