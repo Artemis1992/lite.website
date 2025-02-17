@@ -8,10 +8,11 @@ urlpatterns = [
     path('about/', about, name='about'),  # Страница "О сайте"
     path('addpage/', AddPage.as_view(), name='add_page'),  # Добавление статьи
     path('contact/', contact, name='contact'),  # Обратная связь
-    path('login/', login, name='login'),  # Авторизация
+    path('login/', LoginUser.as_view(), name='login'),  # Авторизация
+    path("logout/", logout_user, name="logout"), # Выход пользователя
     path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'), #Посты
     path('category/<slug:cat_slug>/', PeopleCategory.as_view(), name='category'), # Маршрут для отображения постов определённой категории
-    path('register/', RegisterUser.as_view(), name='register'), 
+    path('register/', RegisterUser.as_view(), name='register'), # Регистрация
 ]
 
 

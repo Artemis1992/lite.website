@@ -1,10 +1,15 @@
+
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required # Декоратор для ограничения доступа к авторизованным пользователям
 from django.core.paginator import Paginator
+from django.contrib.auth import logout
+from django.contrib.auth import login
+
 
 from .forms import *
 from .models import *
@@ -124,7 +129,7 @@ class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = "people/addpage.html"
     # seccess_url = reverse_lazy("home")
-    login_url = "/register/"   # Временно выставили для того чтобы через админ панель можно было добавлять посты.
+    login_url = "/login/"   # Временно выставили для того чтобы через админ панель можно было добавлять посты.
     # login_url = reverse_lazy("home")
     # raise_exception = True  # Формирует страницу 403 доступ запрещен.
     
@@ -158,9 +163,9 @@ class AddPage(LoginRequiredMixin, DataMixin, CreateView):
 def contact(request):
     return render(request, 'people/contact.html', {'menu': menu, 'title': "Обратная сязь"})
 
-# Страница для авторизации    
-def login(request):
-    return render(request, 'people/login.html', {"menu": menu, "title": "Авторизация"})
+# # Страница для авторизации    
+# def login(request):
+#     return render(request, 'people/login.html', {"menu": menu, "title": "Авторизация"})
 
 # Обработчик страницы 404
 def pageNotFound(request, exception):
@@ -177,5 +182,24 @@ class RegisterUser(DataMixin, CreateView):
         c_def = self.get_user_context(title='Регистрация')
         return dict(list(context.items()) + list(c_def.items()))
 
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
 
+class LoginUser(DataMixin, LoginView):
+    form_class = LoginUserForm
+    template_name = 'people/login.html'
+    
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Авторизация')
+        return dict(list(context.items()) + list(c_def.items()))
+    
+    def get_success_url(self):
+        return reverse_lazy('home')
+    
 
+def logout_user(request):
+    logout(request)
+    return redirect('login')

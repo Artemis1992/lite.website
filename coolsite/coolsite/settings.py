@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wtfnw^bttm2qz#0ev&_%m5ivke+u6p_d0h-#c^k#rrn-(-==o!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -132,11 +132,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 MEDIA_URL = "/media/"
 
-DEBUG = True  # Если вы в режиме разработки
 
 ALLOWED_HOSTS = ['127.0.0.1']  # Добавьте хосты, если нужно
 
-
+# LOGIN_REDIRECT_URL = '/'
 
 
 
